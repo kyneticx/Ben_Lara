@@ -52,6 +52,7 @@ public class CreateOrder {
 						firstline.qtyOrdered(console.nextInt());
 						if (console.hasNextLine())
 							console.nextLine();
+						DatabaseHelper.newOrderLine(firstline);
 						
 					}
 					
