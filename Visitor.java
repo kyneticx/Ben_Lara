@@ -1,6 +1,6 @@
 package ams.model;
 
-// Test
+// Test Branch 1
 
 public interface Visitor {
     public void visit(ElectiveCourse elective);
