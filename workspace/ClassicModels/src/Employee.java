@@ -9,8 +9,9 @@ public class Employee {
 	private int reports;
 	private String jobtitle;
 	
-	public Employee(int empNum) {
-		this.empNum = empNum;
+	public Employee(String last, String first) {
+		this.last = last;
+		this.first = first;
 	}
 	
 	public void setName(String last, String first) {

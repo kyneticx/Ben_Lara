@@ -14,9 +14,8 @@ public class Customer {
 	private int empNum;
 	double credLim;
 	
-	public Customer(int custNum, String custName) {
-		this.custNum = custNum;
-		this.custName = custName;
+	public Customer(String custName) {
+			this.custName = custName;
 	}
 	
 	public void setCustName(String custName) {

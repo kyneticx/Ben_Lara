@@ -14,15 +14,15 @@ public class DatabaseHelper {
 		PreparedStatement pst = null;
 			
 		conn = DBUtil.getConnection(DBType.MYSQL);
-		pst = conn.prepareStatement("CALL newCustomer(?, ?, ?, ?, ?, ?, ?, ?)");
-		pst.setInt(1, newCust.getCustNum());
-		pst.setString(2, newCust.getCustName());
-		pst.setString(3, newCust.getCustFirst());
-		pst.setString(4, newCust.getCustLast());
-		pst.setString(5, newCust.getPh());
-		pst.setString(6, newCust.getAdd1());
-		pst.setString(7, newCust.getCity());
-		pst.setString(8, newCust.getCountry());
+		pst = conn.prepareStatement("CALL newCustomer(?, ?, ?, ?, ?, ?, ?)");
+		
+		pst.setString(1, newCust.getCustName());
+		pst.setString(2, newCust.getCustFirst());
+		pst.setString(3, newCust.getCustLast());
+		pst.setString(4, newCust.getPh());
+		pst.setString(5, newCust.getAdd1());
+		pst.setString(6, newCust.getCity());
+		pst.setString(7, newCust.getCountry());
 		pst.executeUpdate();
 		
 		if(newCust.getAdd2() != null) {
@@ -72,15 +72,15 @@ public class DatabaseHelper {
 		PreparedStatement pst = null;
 			
 		conn = DBUtil.getConnection(DBType.MYSQL);
-		pst = conn.prepareStatement("CALL createEmp(?, ?, ?, ?, ?, ?, ?, ?)");
-		pst.setInt(1, newEmp.getEmpNum());
-		pst.setString(2, newEmp.getlast());
-		pst.setString(3, newEmp.getfirst());
-		pst.setString(4, newEmp.getext());
-		pst.setString(5, newEmp.email());
-		pst.setString(6, newEmp.getOffice());
-		pst.setInt(7, newEmp.getReports());
-		pst.setString(8, newEmp.getTitle());
+		pst = conn.prepareStatement("CALL createEmp(?, ?, ?, ?, ?, ?, ?)");
+		
+		pst.setString(1, newEmp.getlast());
+		pst.setString(2, newEmp.getfirst());
+		pst.setString(3, newEmp.getext());
+		pst.setString(4, newEmp.email());
+		pst.setString(5, newEmp.getOffice());
+		pst.setInt(6, newEmp.getReports());
+		pst.setString(7, newEmp.getTitle());
 		
 		pst.executeUpdate();
 		
@@ -404,6 +404,29 @@ public class DatabaseHelper {
 		conn.close();
 		return products;
 	}
+
+	public static ArrayList<Integer> getEmployees() throws SQLException {
+		Connection conn = null;
+		PreparedStatement pst = null;
+	
+		conn = DBUtil.getConnection(DBType.MYSQL);
+		pst = conn.prepareStatement("SELECT employeeNumber FROM employees)");
+		ResultSet result = pst.executeQuery();
+		ArrayList<Integer> employees = new ArrayList<Integer>();
+		
+		
+		
+			while (result.next()){
+				employees.add(result.getInt("employeeNumber"));
+				
+			}
+				
+	
+		pst.close();
+		conn.close();
+		return employees;
+	}
+	
 
 
 
