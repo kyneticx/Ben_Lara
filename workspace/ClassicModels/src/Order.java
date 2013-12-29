@@ -70,6 +70,12 @@ public class Order {
 		return custNum;
 	}
 	
+	public void shipOrder(Calendar shipDate) {
+		status = "Shipped";
+		this.shipDate = shipDate;
+	}
+	
+	
 	
 }
 

@@ -212,6 +212,50 @@ public class DatabaseHelper {
 		conn.close();
 	}
 	
+	public static void addOrderComments(int orderNum, String comments) throws SQLException {
+		Connection conn = null;
+		PreparedStatement pst = null;
+		conn = DBUtil.getConnection(DBType.MYSQL);
+		
+		pst = conn.prepareStatement("UPDATE orders SET comments = ? where orderNumber = ?");
+		pst.setString(1, comments);
+		pst.setInt(2, orderNum);
+		pst.executeUpdate();
+		pst.close();
+		conn.close();
+	}
+	
+	public static void addOrderComments(Order thisorder) throws SQLException {
+		Connection conn = null;
+		PreparedStatement pst = null;
+		conn = DBUtil.getConnection(DBType.MYSQL);
+		
+		pst = conn.prepareStatement("UPDATE orders SET comments = ? where orderNumber = ?");
+		pst.setString(1, thisorder.getComments());
+		pst.setInt(2, thisorder.getOrderNum());
+		pst.executeUpdate();
+		pst.close();
+		conn.close();
+	}
+	
+	public static void shipOrder(Order thisorder) throws SQLException {
+		Connection conn = null;
+		PreparedStatement pst = null;
+		conn = DBUtil.getConnection(DBType.MYSQL);		
+		pst = conn.prepareStatement("UPDATE orders SET shippedDate = ? where orderNumber = ?");
+		pst.setDate(1, (new java.sql.Date(thisorder.getShipDate().getTimeInMillis())));
+		pst.setInt(2, thisorder.getOrderNum());
+		pst.executeUpdate();
+		pst = conn.prepareStatement("UPDATE orders SET status = ? where orderNumber = ?");
+		pst.setString(1, thisorder.getStatus());
+		pst.setInt(2, thisorder.getOrderNum());
+		pst.executeUpdate();
+		pst.close();
+		conn.close();
+	}
+	
+	
+	
 	public static double getAvailableCredit(Customer thisCust) throws SQLException {
 		Connection conn = null;
 		PreparedStatement pst = null;
