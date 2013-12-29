@@ -1,0 +1,17 @@
+Very Simple and self explanatory to use - Initialise program will be the only 
+option available until you have setup a program - once you do that the button
+will change to reset and the add button and menu item will be enabled. 
+
+Clicking the add or reset/initialise button will present an input dialog which 
+you can cancel at anytime - if you hit ok input validation will be performed and 
+any errors detected will be output as messages to a new dialog box asking you 
+to enter them again.
+
+To remove a program you must first select one of the courses in the in the 
+program map - when you have selected a course its border will be highlighted in
+red - you can deselect the course by clicking it again or directly select 
+another course which will deselect the one currently selected. Once you have
+selected a course the remove button will be enabled enabling you to remove the
+course.
+
+Have a nice day! :D
