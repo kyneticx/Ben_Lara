@@ -254,7 +254,56 @@ public class DatabaseHelper {
 		conn.close();
 	}
 	
+	public static void newOrderLine(OrderLine line) throws SQLException {
+		Connection conn = null;
+		PreparedStatement pst = null;
+		conn = DBUtil.getConnection(DBType.MYSQL);
+		pst = conn.prepareStatement("CALL createOrderLine(?,?,?,?,?)");
+		pst.setInt(1, line.getOrderNum());
+		pst.setString(2, line.getProductCode());
+		pst.setInt(3, line.getQtyOrdered());
+		pst.setDouble(4, line.getPrice());
+		pst.setInt(5, line.lineNum());
+		
+		pst.executeUpdate();
+		
+		pst.close();
+		conn.close();
+	}
 	
+	public static int getNextLineNum(int orderNum) throws SQLException {
+		int nextLineNum = 0;
+		Connection conn = null;
+		PreparedStatement pst = null;
+		conn = DBUtil.getConnection(DBType.MYSQL);
+		pst = conn.prepareStatement("select max(orderLineNumber) from orderdetails where orderNumber = ?");
+		pst.setInt(1, orderNum);
+		ResultSet rs = pst.executeQuery();
+		while (rs.next()) {
+			nextLineNum = rs.getInt(1);
+		}
+		
+		return nextLineNum;
+	}
+	
+	public static boolean checkOrderExist(int orderNum) throws SQLException {
+		boolean found = false;
+		Connection conn = null;
+		PreparedStatement pst = null;
+		conn = DBUtil.getConnection(DBType.MYSQL);
+		pst = conn.prepareStatement("select orderNumber from orders where orderNumber = ?");
+		pst.setInt(1, orderNum);
+		ResultSet rs = pst.executeQuery();
+		while (rs.next()) {
+			if (rs.getInt(1) > 0)
+			{
+				found = true;
+				return found;
+			}
+		}
+		
+		return found;
+	}
 	
 	public static double getAvailableCredit(Customer thisCust) throws SQLException {
 		Connection conn = null;

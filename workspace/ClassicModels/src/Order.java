@@ -13,9 +13,13 @@ public class Order {
 	
 
 	
-	public Order(int orderNum) {
+	public Order() {
 		status = "Open";
-		this.orderNum = orderNum;		
+			
+	}
+	
+	public void setOrderNum(int orderNum) {
+		this.orderNum = orderNum;
 	}
 	
 	public void setOrderDate(Calendar orderDate) {
