@@ -4,6 +4,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 
 public class DatabaseHelper {
@@ -177,6 +178,38 @@ public class DatabaseHelper {
 
 		conn.close();
 		pst.close();
+	}
+	
+	public static int getNewOrderNum() throws SQLException {
+		Connection conn = null;
+		PreparedStatement pst = null;
+		conn = DBUtil.getConnection(DBType.MYSQL);
+		pst = conn.prepareStatement("SELECT max(orderNumber) FROM orders");
+		ResultSet rs = pst.executeQuery();
+		int orderNumber = 0;
+		while(rs.next()) {
+				orderNumber = rs.getInt(1);
+						
+		}
+		orderNumber+=10;
+		return orderNumber;
+	}
+	
+	public static void newOrder(Order neworder) throws SQLException {
+		Connection conn = null;
+		PreparedStatement pst = null;
+		conn = DBUtil.getConnection(DBType.MYSQL);
+		
+		pst = conn.prepareStatement("CALL createOrder(?, ?, ?, ?, ?)");
+		pst.setInt(1, neworder.getOrderNum());
+		pst.setDate(2, (new java.sql.Date(neworder.getOrderDate().getTimeInMillis())));
+		pst.setDate(3, (new java.sql.Date(neworder.getreqDate().getTimeInMillis())));
+		pst.setString(4, neworder.getStatus());
+		pst.setInt(5, neworder.getCustNum());
+		pst.executeUpdate();
+		
+		pst.close();
+		conn.close();
 	}
 	
 	public static double getAvailableCredit(Customer thisCust) throws SQLException {

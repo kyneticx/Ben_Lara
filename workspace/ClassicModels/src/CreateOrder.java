@@ -27,19 +27,26 @@ public class CreateOrder {
 		neworder.setCustNum(363);
 		neworder.setOrderDate(Calendar.getInstance());		
 		Calendar shipDate = Calendar.getInstance();
-		shipDate.set(2013, 12, 30);
-		neworder.shipDate(shipDate);
 		Calendar reqDate = Calendar.getInstance();
 		reqDate.set(2013, 12, 30);
 		neworder.setReqDate(reqDate);
 		neworder.setStatus("Open");
-		neworder.addComment("Deliver by 30 Dec");
 		
 		//
 
-		pst = conn.prepareStatement("UPDATE orders VALUES(?)");
+		pst = conn.prepareStatement("CALL createOrder(?, ?, ?, ?, ?)");
 		
-		pst.setString(1, (new SimpleDateFormat("yyyy-MM-dd").format(neworder.getOrderDate())));
+//		pst.setString(1, (new SimpleDateFormat("yyyy-MM-dd").format(neworder.getOrderDate())));
+		pst.setInt(1, neworder.getOrderNum());
+		pst.setDate(2, (new java.sql.Date(neworder.getOrderDate().getTimeInMillis())));
+		pst.setDate(3, (new java.sql.Date(neworder.getreqDate().getTimeInMillis())));
+		pst.setString(4, neworder.getStatus());
+		pst.setInt(5, neworder.getCustNum());
+		pst.executeUpdate();
+		
+		pst.close();
+		conn.close();
+		
 		//
 			
 		
