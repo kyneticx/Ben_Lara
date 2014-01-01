@@ -14,6 +14,13 @@ public class Customer {
 	private int empNum;
 	double credLim;
 	
+	public Customer() {
+		
+	}
+	public Customer (int custNum) {
+		this.custNum = custNum;
+	}
+	
 	public Customer(String custName) {
 			this.custName = custName;
 	}
@@ -27,6 +34,9 @@ public class Customer {
 		this.contFirst = contFirst;
 	}
 	
+	public void setCustNum(int custNum) {
+		this.custNum = custNum;
+	}
 	
 	
 	public void setAddress1(String address1, String city, String state, String pcode, String country, String phone) {

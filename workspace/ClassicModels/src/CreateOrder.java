@@ -76,10 +76,14 @@ public class CreateOrder {
 				SimpleDateFormat sdf = new SimpleDateFormat("YYYYmmdd");
 				reqDate.setTime(sdf.parse(stringreqDate));
 				newOrder.setReqDate(reqDate);
+				Customer thisCust = new Customer();
 				System.out.print("Enter the customer number: ");
-				newOrder.setCustNum(console.nextInt());
-				if (console.hasNextLine())
-					console.nextLine();
+				thisCust.setCustNum(console.nextInt());
+				if (console.hasNextLine()) {console.nextLine(); }
+				double availcred = DatabaseHelper.getAvailableCredit(thisCust);
+				System.out.print("Customers available credit is: " + availcred);
+				
+     			newOrder.setCustNum(thisCust.getCustNum());
 					
 				DatabaseHelper.newOrder(newOrder);
 			
